@@ -38,7 +38,7 @@ def assert_ticket_link_exists(driver):
 
         # Assert link date is correct
         date_regex = r"(\d{2}-\d{2}-\d{4})"
-        url_date = re.search(date_regex, ticket_link).group()
+        url_date = re.search(date_regex, ticket_link).group(1)
         splitted_url_date = url_date.split('-')
         url_month = int(splitted_url_date[0])
         url_day = int(splitted_url_date[1])
