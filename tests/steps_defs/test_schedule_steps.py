@@ -45,8 +45,12 @@ def assert_ticket_link_exists(driver):
         url_year = int(splitted_url_date[2])
 
         event_date = tile.find_element(*ScheduleWidget.EVENT_TILE_DATE).text
-        event_month = get_month_number(event_date[5:8].lower())
-        event_day = int(event_date[9:])
+        if event_date.lower() == 'today':
+            event_month = datetime.today().month
+            event_day = datetime.today().day
+        else:
+            event_month = get_month_number(event_date[5:8].lower())
+            event_day = int(event_date[9:])
 
         # Assuming the event list is sorted by date, if a previous month is found,
         # then that means that it is from the next year
@@ -73,3 +77,4 @@ def assert_ticket_link_not_exists(driver):
 @then(parsers.parse('the url from the new window contains the text "{text}"'))
 def assert_url_contains_text(driver, text):
     assert_url_contains(driver, text)
+    driver.quit()
